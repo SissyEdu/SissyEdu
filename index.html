@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Star</title>
+    <style>
+
+        *{
+            margin: 0;
+            padding: 0;
+        }
+
+        body{
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            background-color: #333;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            flex-direction: column;
+        }
+
+        h1::selection,
+        .word::selection{
+            background: none;
+            cursor: default;
+        }
+
+        h1{
+            cursor: default;
+            color: white;
+            font-size: 200px;
+            margin: 100px auto auto;
+            letter-spacing: 40px;
+            padding-left: 40px;
+            z-index:1;
+            text-shadow: 5px 2px #222324 , 2px 4px #222324, 3px 5px #222324 , 4px 8px #222324, 5px 10px #222324,
+            7px 12px #222324,7px 14px #222324 , 8px 15px #222324 ,10px 20px #222324;
+        }
+
+        .word{
+            cursor: default;
+            color: white;
+            margin: -300px auto auto;
+            font: 700 normal 3.55555em 'tahoma';
+            text-shadow: 5px 2px #222324 , 2px 4px #222324, 3px 5px #222324 , 4px 8px #222324, 5px 10px #222324,
+        7px 12px #222324,7px 14px #222324 , 8px 15px #222324 ,10px 20px #222324;
+
+        }
+    </style>
+</head>
+<body>
+    <h1>STAR</h1><br>
+    <div class="word"></div>
+</body>
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script>
+    var words = ['HELLO , I\'M STAR','I AM A COSER','I ALSO LIKE PROGRAMMING'],
+        part,
+        i = 0,
+        offset = 0,
+        len = words.length,
+        forwards = true,
+        skip_count = 0,
+        skip_delay = 5,
+        speed = 100;
+    var wordflick = function () {
+        setInterval(function () {
+            if(forwards){
+                if(offset >= words[i].length) {
+                    ++skip_count;
+                    if(skip_count === skip_delay) {
+                        forwards = false;
+                        skip_count = 0;
+                    }
+                }
+            }else {
+                if(offset === 0){
+                    forwards = true;
+                    i++;
+                    offset = 0;
+                    if(i >= len) {
+                        i = 0;
+                    }
+                }
+            }
+
+            part = words[i].substr(0,offset);
+            if(skip_count === 0) {
+                if(forwards) {
+                    offset ++;
+                }else {
+                    offset --;
+                }
+            }
+            $('.word').text(part);
+        },speed)
+    };
+
+    $(document).ready(function () {
+        wordflick();
+    })
+
+
+</script>
+</html>
